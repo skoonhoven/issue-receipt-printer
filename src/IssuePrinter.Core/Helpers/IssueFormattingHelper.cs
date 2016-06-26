@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Reflection;
 
 namespace IssuePrinter.Core.Helpers
 {
@@ -34,9 +31,7 @@ namespace IssuePrinter.Core.Helpers
                     lines.Add(currentLine);
                     currentLine = "";
                 }
-
                 
-
                 if (currentLine.Length > 0)
                     currentLine += " " + currentWord;
                 else
@@ -46,26 +41,8 @@ namespace IssuePrinter.Core.Helpers
 
             if (currentLine.Length > 0)
                 lines.Add(currentLine);
-
-
-            return lines;
-        }
-
-        public static Image OpenEmbeddedImage(string resourceName)
-        {
-            Stream imageStream;
             
-            try
-            {
-                var assembly = Assembly.GetExecutingAssembly();
-                imageStream = assembly.GetManifestResourceStream("WindowsIssuePrinter."+resourceName);                
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
-            return Image.FromStream(imageStream);
+            return lines;
         }
     }
 }
