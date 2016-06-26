@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using IssuePrinter.Core.Helpers;
 using IssuePrinter.Core.Models;
+using IssuePrinter.Core.Resources;
 
 namespace IssuePrinter.Core
 {
@@ -90,32 +91,26 @@ namespace IssuePrinter.Core
                 offsetY += lineHeight;
             }            
         }
-
-       
+        
         private static void PrintPriority(PrintPageEventArgs ev, IssueCard issue)
         {
-            var resourceName = PriorityToString(issue);
-            
-            var resourcePath = String.Format("Resources.priority.{0}.png", resourceName);
-
-            var priorityIcon = IssueFormattingHelper.OpenEmbeddedImage(resourcePath);
+            var priorityIcon = PriorityToImage(issue.Priority);
 
             ev.Graphics.DrawImage(priorityIcon,350,20);
-
         }
 
-        private static string PriorityToString(IssueCard issue)
+        private static Image PriorityToImage(Priority priority)
         {
-            switch (issue.Priority)
+            switch (priority)
             {
                 case Priority.Minor:
-                    return "minor";
+                    return Icons.minor;
                 case Priority.Major:
-                    return "major";
+                    return Icons.major;
                 case Priority.Critical:
-                    return "critical";
+                    return Icons.critical;
                 case Priority.Blocker:
-                    return "blocker";
+                    return Icons.blocker;
                 default:
                     throw new ArgumentException();            
             }
